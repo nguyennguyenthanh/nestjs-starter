@@ -1,9 +1,5 @@
+import { BaseEntity } from 'src/utils/BaseEntity';
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
 
-@Entity('user_info')
-export class UserInfo {
-  @Column('id')
-  @PrimaryColumn('uuid')
-  @Generated()
-  id: string;
-}
+@Entity({ name: 'user_info' })
+export class UserInfo extends BaseEntity {}

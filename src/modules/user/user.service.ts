@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserInfo } from './entities/user-info.entity';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
@@ -13,6 +14,8 @@ export class UserService {
     private readonly userRepository: Repository<User>,
     @InjectRepository(UserInfo)
     private readonly userInfoRepository: Repository<UserInfo>,
+    @Inject(AuthService)
+    private readonly authService: AuthService,
   ) {}
 
   create(createUserDto: CreateUserDto) {
@@ -20,25 +23,29 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    this.authService.checkIsLoggedIn();
+
+    return this.userRepository.find();
   }
 
   findOne(id: string) {
-    const user = this.userRepository.findOneBy({
-      id: id,
-    });
+    // const user = this.userRepository.findOneBy({
+    //   id: id,
+    // });
 
-    if (!user) {
-      throw new Error('User not found');
-    }
+    // if (!user) {
+    //   throw new Error('User not found');
+    // }
 
-    return this.userInfoRepository.update({
-      id: '',
-    });
+    // return this.userInfoRepository.update({
+    //   id: '',
+    // });
+
+    return this.userRepository.findOneBy({ id });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.userRepository.update(id, updateUserDto);
   }
 
   remove(id: number) {
