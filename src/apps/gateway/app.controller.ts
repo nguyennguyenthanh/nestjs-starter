@@ -15,7 +15,7 @@ export class AppController {
   getUsers(@Req() req: Request) {
     const payload = {
       context: {
-        user: 'me@example.com', // req.user (sau khi login)
+        user: 'me@example.com', // req.user (after login)
         session_id: '...', // extract from token
         device_id: '...', // extract DB/TOKEN ...
         path: req.url,

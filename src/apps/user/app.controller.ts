@@ -21,12 +21,12 @@ export class AppController {
 
     channel.ack(originalMessage);
 
-    try {
-      // await do somethings
-      // const channel = ctx.getChannelRef();
-      // const originalMessage = ctx.getMessage();
-      // channel.ack(originalMessage);
-    } catch (error) {}
+    // try {
+    //   // await do somethings
+    //   // const channel = ctx.getChannelRef();
+    //   // const originalMessage = ctx.getMessage();
+    //   // channel.ack(originalMessage);
+    // } catch (error) {}
 
     return this.appService.getUsersFromDB();
   }
